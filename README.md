@@ -5,7 +5,7 @@ Shopify Summer Development Challenge
 
 Hello to whoever is looking at this!
 
-You'll need (at least) Python 3.5, Flask (run on version 1.02), Connexion (2.20) and (optionally) swagger-ui to run this repository
+You'll need (at least) Python 3.5, Flask (run on version 1.02), Connexion (2.20) and (optionally) swagger-ui to run this web server API
 
 # Instructions
 
@@ -22,4 +22,4 @@ Passing in in_stock = True shows only items that are in stock
 
 Purchase accepts an argument for # of items wishing to be purchased
 
-Cart can either be added to, cleared, or a "purchase" can be made, and the items will be removed from the store
+Cart can either be added to, cleared, or a "purchase" can be made, and the items will be removed from the store 
