@@ -1,0 +1,175 @@
+swagger: "2.0"
+info:
+  description: Swagger file for Shopify Developer challenge
+  version: "1.0.0"
+  title: Swagger ReST Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /store:
+    get:
+      operationId: store.see_all
+      tags:
+        - Store
+      summary: Read the entire list of products
+      description: Read the list of products
+      parameters:
+        - name: in_stock
+          in: query
+          type: boolean
+          description: Only get products that have stock
+          required: false
+      responses:
+        200:
+          description: Successfully read product list operation
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              price:
+                type: number
+              inventory_count:
+                type: integer
+              timestamp:
+                type: string
+        404:
+          description: Could not find store
+  
+  /store/{title}:
+    get:
+      operationId: store.search
+      tags:
+         - Store
+      summary: Search for an item in the product list
+      description: Search for an item in the product list
+      parameters:
+        - name: title
+          in: path
+          description: Title of the product
+          type: string
+          required: True
+      responses:
+        200:
+          description: Found the product
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              price:
+                type: number
+              inventory_count:
+                type: integer
+              timestamp:
+                type: string
+        404:
+          description: Failed to find product   
+                
+  /purchase/{title}:
+    post:
+      operationId: store.purchase
+      tags:
+        - Store
+      summary: Purchase an item in the product list
+      description: Purchase a product
+      parameters:
+        - name: title
+          in: path
+          description: Title of the product
+          type: string
+          required: True
+        - name: amount
+          in: query
+          description: Number of product being purchased
+          type: integer
+          required: false
+      responses:
+        200:
+          description: Successfully bought product
+        404:
+          description: Failed to buy product
+  
+  /cart:
+    get:
+      operationId: store.view_cart
+      tags:
+        - Cart
+      summary: See your current cart
+      description: See current cart
+      responses:
+        200:
+          description: Successfully read cart
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  price:
+                    type: number
+                  inventory_count:
+                    type: integer
+                  timestamp:
+                    type: string
+              total_cost:
+                type: integer
+        404:
+          description: Cart is empty
+  
+  /cart/add/{title}:
+    post:
+      operationId: store.cart_add
+      tags:
+        - Cart
+      summary: Put a product into a cart
+      description: Put a product into a cart
+      parameters:
+        - name: title
+          in: path
+          description: Title of the product
+          type: string
+          required: True
+        - name: amount
+          in: query
+          description: Number of product being purchased
+          type: integer
+          required: false
+      responses:
+        200:
+          description: Successfully added product to cart
+        404:
+          description: Failed to add product to cart
+  /cart/clear:
+    post:
+      operationId: store.clear_cart
+      tags:
+        - Cart
+      summary: Clear the cart
+      description: Clear the cart
+      responses:
+        200:
+          description: Cart cleared
+        404:
+          description: Failed to clear cart
+  /cart/purchase:
+     post:
+       operationId: store.purchase_cart
+       tags:
+         - Cart
+       summary: Purchase the cart
+       description: Purchase the cart
+       responses:
+        200:
+          description: Cart purchased
+        404:
+          description: Failed to purchase cart
+   
